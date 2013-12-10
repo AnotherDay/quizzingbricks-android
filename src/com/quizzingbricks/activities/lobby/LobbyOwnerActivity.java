@@ -210,6 +210,9 @@ public class LobbyOwnerActivity extends ListActivity implements OnTaskCompleteAs
 		
 		@Override
 		public void onClick(View arg0) {
+//			System.out.println(result.getResult().toString());
+			//Intent returnIntent = new Intent();
+			setResult(RESULT_OK); 
 			this.activity.finish();
 			new LobbyThreadedAPI(context).startGame(lobbyId, lobbyOwnerActivity);
 		}

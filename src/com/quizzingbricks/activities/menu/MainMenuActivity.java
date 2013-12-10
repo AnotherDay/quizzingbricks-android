@@ -197,7 +197,10 @@ public class MainMenuActivity extends FragmentActivity implements ActionBar.TabL
 			     if(resultCode == RESULT_OK){     
 			    	 LobbyThreadedAPI lobbyThreadedAPI = new LobbyThreadedAPI(this);
 			    	 lobbyThreadedAPI.getGameLobbies(lobbyfragment);
+			    	 GamesThreadedAPI lt = new GamesThreadedAPI(this);
+			 		 lt.getActiveGames(gamelistfragment);
 			    	 Toast.makeText(this, "Game started", 2).show();
+			    	 
 			     }
 			 }
 		}
