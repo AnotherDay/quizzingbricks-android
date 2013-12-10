@@ -6,6 +6,9 @@ import org.json.JSONObject;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,6 +27,7 @@ import com.quizzingbricks.communication.apiObjects.LobbyThreadedAPI;
 import com.quizzingbricks.communication.apiObjects.OnTaskCompleteAsync;
 import com.quizzingbricks.communication.apiObjects.UserThreadedAPI;
 import com.quizzingbricks.tools.AsyncTaskResult;
+import com.quizzingbricks.tools.TwoButtonPopupWindow;
 
 public class MainMenuActivity extends FragmentActivity implements ActionBar.TabListener, OnTaskCompleteAsync{
 		private ViewPager viewPager;
@@ -102,7 +106,23 @@ public class MainMenuActivity extends FragmentActivity implements ActionBar.TabL
 	    }
 	    
 	    public void onLogoutPressed(MenuItem view)	{
-			new AuthenticationManager(this).logout();
+	    	TwoButtonPopupWindow logoutPopup = new TwoButtonPopupWindow(this);
+	    	final Context contextForListener = this;
+	    	logoutPopup.createPopupWindow("Logout", "Do you whant to logout?", "Yes", "No",
+	    			new OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+							new AuthenticationManager(contextForListener).logout();
+						}
+					},
+	    			new OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+						}
+					});
 		}
 	    
 	    @Override
