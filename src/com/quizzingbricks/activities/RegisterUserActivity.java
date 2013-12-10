@@ -1,10 +1,11 @@
 package com.quizzingbricks.activities;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -23,8 +24,23 @@ public class RegisterUserActivity extends Activity implements OnTaskCompleteAsyn
 	
 	 public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
+	        ActionBar ab = getActionBar();
+	        ab.setTitle("Create Account");
+	        ab.setDisplayHomeAsUpEnabled(true);
 	        setContentView(R.layout.activity_register_user);
 	    }
+	 
+	 @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.login, menu);
+        return true;
+    }
+ 
+	 @Override
+	public void onBackPressed() {
+		finish();
+	}
 	 
 	 public void sendRegisterUserInfo(View view)	{
 		EditText emailEdit = (EditText) findViewById(R.id.register_user_email_edit);

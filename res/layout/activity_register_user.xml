@@ -16,28 +16,15 @@
     tools:context=".LoginActivity" >
     
     <TextView
-        android:id="@+id/register_user_text_header"
-        style="@style/textHeader"
-        android:layout_alignParentTop="true"
-        android:paddingBottom="8dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/register_user_header" 
-        />
-    
-    
-    <TextView
         android:id="@+id/error_message_text"
         style="@style/inputBoxScreenWidth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/register_user_text_header"
+        android:text=""
         android:textColor="@color/warning_red"
-        android:textSize="16sp" 
-        android:text=""/>
-    
+        android:textSize="16sp"
+        android:layout_marginTop="-20dp" 
+        />
     
     <TextView
         android:id="@+id/register_user_email_edit_header"
@@ -52,21 +39,6 @@
         android:hint="@string/register_user_email_text_hint"
         android:inputType="textNoSuggestions|textEmailAddress"
         />
-    
-<!--     <TextView -->
-<!--         android:id="@+id/register_user_username_edit_header" -->
-<!--         android:layout_below="@id/register_user_email_edit" -->
-<!--         android:text="@string/register_user_username_edit_header" -->
-<!--         style="@style/inputBoxHeader"  -->
-<!--     	/> -->
-<!--     <EditText  -->
-<!--         android:id="@+id/register_user_username_edit" -->
-<!--         android:layout_below="@id/register_user_username_edit_header" -->
-<!--         style="@style/inputBoxScreenWidth" -->
-<!--         android:hint="@string/register_user_username_text_hint" -->
-<!--         android:inputType="textNoSuggestions|textVisiblePassword" -->
-<!--         /> -->
-    
     
     <TextView
         android:id="@+id/register_user_password_edit_header"

@@ -35,6 +35,7 @@ public class LoginActivity extends Activity implements OnTaskCompleteAsync	{
         	new SimplePopupWindow(this).createPopupWindow("Login error", intent.getStringExtra("Message"));
         }
         ActionBar ab = getActionBar();
+        ab.setTitle("Login");
         ab.setDisplayHomeAsUpEnabled(true);
 	    new UserThreadedAPI(this).getFriendsList(this);
     }
