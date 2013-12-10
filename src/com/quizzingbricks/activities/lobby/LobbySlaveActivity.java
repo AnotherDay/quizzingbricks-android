@@ -96,7 +96,7 @@ public class LobbySlaveActivity extends ListActivity implements OnTaskCompleteAs
 			ListView listView = getListView();
 			
 			TextView textView = new TextView(this);
-			textView.setTextSize(18);
+			textView.setTextSize(24);
 			int whiteSpacePadding = 20;
 			textView.setText("Players in lobby");
 			textView.setPadding(whiteSpacePadding, whiteSpacePadding, whiteSpacePadding, whiteSpacePadding+20);
