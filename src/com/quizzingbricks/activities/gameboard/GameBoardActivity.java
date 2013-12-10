@@ -47,6 +47,7 @@ public class GameBoardActivity extends Activity implements OnTaskCompleteAsync{
 	private GamesThreadedAPI gameThreadedAPI;
 	private int y_coord, x_coord;
 	private int myID;
+	private int NULL_VALUE = 1000;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -132,16 +133,29 @@ public class GameBoardActivity extends Activity implements OnTaskCompleteAsync{
 					gameborder.add(Integer.parseInt(board.get(i).toString()));
 //					System.out.println(board.get(i).toString());
 				}
+    			int clearBrickXPos = NULL_VALUE;
+    			int clearBrickYPos = NULL_VALUE;
 //    			gameboards = (int[]) board.get(index);
     			for (int i = 0; i < playerArray.length(); i++) {
-    				Object playerid = playerArray.getJSONObject(i).get("userId");
-    				Object playerstate = playerArray.getJSONObject(i).get("state");
+    				int playerid = playerArray.getJSONObject(i).getInt("userId");
+    				int playerstate = playerArray.getJSONObject(i).getInt("state");
+    				
+    				if(playerid == myID && (playerstate == 1 || playerstate == 2 || playerstate == 3))	{
+    					clearBrickXPos = playerArray.getJSONObject(i).getInt("x");
+    					clearBrickYPos = playerArray.getJSONObject(i).getInt("y");
+    				}
+    				
 					Object playeranswerbool = playerArray.getJSONObject(i).get("answeredCorrectly");
-					playerlist.add(Integer.parseInt(playerid.toString()));
+					playerlist.add(playerid);
 					playerEmailList.add(playerArray.getJSONObject(i).getString("email"));
 					System.out.println("player "+playerid+" answered"+playeranswerbool);
 				}
-    			makeNewAndImprovedGameBoard(gameborder, playerlist, playerEmailList);
+    			if(clearBrickXPos == NULL_VALUE && clearBrickYPos == NULL_VALUE)	{
+    				makeNewAndImprovedGameBoard(gameborder, playerlist, playerEmailList);
+    			}
+    			else	{
+    				makeNewAndImprovedGameBoard(gameborder, playerlist, playerEmailList, clearBrickXPos, clearBrickYPos);
+    			}
     			
     		//Quizz fight, start quizz first, (after printing gameboard) 
     			if (quizzfirst) {
@@ -189,7 +203,8 @@ public class GameBoardActivity extends Activity implements OnTaskCompleteAsync{
 		new GamesThreadedAPI(this).getGameInfo(gameID, this);
 	}
 	
-	void makeNewAndImprovedGameBoard(ArrayList<Integer> gameboards, ArrayList<Integer> playerlist, ArrayList<String> playerEmailList){
+	private void makeNewAndImprovedGameBoard(ArrayList<Integer> gameboards, ArrayList<Integer> playerlist, 
+		ArrayList<String> playerEmailList, int... clearBrickPos){
 		ScrollView a = new ScrollView(this);
         a.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         
@@ -290,7 +305,19 @@ public class GameBoardActivity extends Activity implements OnTaskCompleteAsync{
             	
 //            	int tileistakenby = gameboards;
             	int is_owned_by = gameboards.get((i*BOARD_SIZE)+j);
-            	if (playerlist.size()==2) {
+            	
+            	if(clearBrickPos.length > 0 && j == clearBrickPos[0] && i == clearBrickPos[1])	{
+        			if (myID == playerlist.get(0)) {
+        				ib.setImageResource(R.drawable.boardcellbluepending);
+        			}else if (myID==playerlist.get(1)) {
+        				ib.setImageResource(R.drawable.boardcellgreenpending);
+        			}else if (myID==playerlist.get(2)) {
+        				ib.setImageResource(R.drawable.boardcellyellowpending);
+        			}else if (myID==playerlist.get(3)) {
+        				ib.setImageResource(R.drawable.boardcellredpending);
+        			}
+            	}
+            	else if (playerlist.size()==2) {
             		if (is_owned_by == playerlist.get(0)) {
                 		ib.setImageResource(R.drawable.boardcellblue);
     				}else if (is_owned_by==playerlist.get(1)) {
@@ -320,61 +347,4 @@ public class GameBoardActivity extends Activity implements OnTaskCompleteAsync{
         a.addView(b);
         setContentView(a);
 	}
-	
-//	
-//    void makeGameBoard(){   
-//        ScrollView a = new ScrollView(this);
-//        a.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-//        
-//        HorizontalScrollView b = new HorizontalScrollView(this);
-//        b.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-//        
-//        LinearLayout c = new LinearLayout(this);
-//        c.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-//        c.setOrientation(LinearLayout.VERTICAL);
-//        
-//        for (int i = 0; i < BOARD_SIZE; i++) {
-//        	LinearLayout d = new LinearLayout(this);
-//            d.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-////            d.setPadding(-5, 0, -5, 0);
-//            d.setOrientation(LinearLayout.HORIZONTAL);
-//            for (int j = 0; j < BOARD_SIZE; j++) {
-//            	ImageButton ib = new ImageButton(this);
-//            	ib.setImageResource(R.drawable.boardcellempty);
-//            	ib.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-//            	ib.setId((i*BOARD_SIZE)+j);
-//            	ib.setOnClickListener(new OnClickListener() {
-//					
-//					@Override
-//					public void onClick(View v) {
-//						GamesThreadedAPI GTAPI = new GamesThreadedAPI(getApplicationContext());
-//						
-//						int id = v.getId();
-//						int y = id % BOARD_SIZE;
-//						int x = id / BOARD_SIZE;
-//						System.out.println(gameID);
-//						System.out.println(x);
-//						System.out.println(y);
-//						
-//						GTAPI.placeBricks(gameID, x, y, ontaskcomplete);
-//						Intent i = new Intent(getApplicationContext(), QuestionPromptActivity.class);
-////						System.out.println("loltest"+id);
-//				    	i.putExtra("gameID", gameID);
-////						startActivity(i);
-//				    	startActivityForResult(i, 1);
-//				    	
-////				    	 ImageButton b = (ImageButton) findViewById(id);
-////							b.setImageResource(R.drawable.boardcellblue);
-//
-//					}
-//				});
-////                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//            	d.addView(ib);//new Button(this));
-//    		}
-//            c.addView(d);
-//		}
-//        b.addView(c);
-//        a.addView(b);
-//        setContentView(a);
-//	}
 }
