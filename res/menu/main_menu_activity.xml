@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" 
     >
+<!--     <item  -->
+<!--         android:id="@+id/actionbar_refresh_button" -->
+<!--         android:showAsAction="always" -->
+<!--         android:title="@string/refresh" -->
+<!--         android:icon="@drawable/ic_action_refresh" -->
+<!--         android:onClick="onRefreshButtonPress" -->
+<!--         />  -->
     <item 
         android:id="@+id/actionbar_logout_button"
         android:showAsAction="always"
         android:title="@string/logout"
         android:icon="@drawable/logout_icon"
         android:onClick="onLogoutPressed"
-        /> 
+        />
 </menu>

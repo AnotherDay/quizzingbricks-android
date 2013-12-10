@@ -43,5 +43,6 @@
     <string name="your_games">Your Games</string>
     <string name="create_game">Create Game</string>
     <string name="logout">Logout</string>
+    <string name="refresh">Refresh</string>
 
 </resources>

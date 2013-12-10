@@ -117,13 +117,21 @@ public class MainMenuActivity extends FragmentActivity implements ActionBar.TabL
 						}
 					},
 	    			new OnClickListener() {
-						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							dialog.dismiss();
 						}
 					});
 		}
+	    
+	    public void onRefreshButtonPress(MenuItem menuItem)	{
+    		LobbyThreadedAPI lobbyThreadedAPI = new LobbyThreadedAPI(this);
+    		lobbyThreadedAPI.getGameLobbies(lobbyfragment);
+    		UserThreadedAPI userThreadedAPI = new UserThreadedAPI(this);
+    		userThreadedAPI.getFriendsList(friendsfragment);
+    		GamesThreadedAPI lt = new GamesThreadedAPI(this);
+    		lt.getActiveGames(gamelistfragment);
+	    }
 	    
 	    @Override
 	    public boolean onCreateOptionsMenu(Menu menu) {
