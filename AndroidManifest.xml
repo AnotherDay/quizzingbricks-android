@@ -27,7 +27,7 @@
         <activity
             android:name="com.quizzingbricks.activities.LoginActivity"
             android:label="@string/app_name"
-            android:parentActivityName="com.quizzingbricks.activities.FirstStartActivity" >
+            >
         </activity>
         <activity
             android:name="com.quizzingbricks.activities.inactive.MenuActivity"
@@ -70,7 +70,7 @@
         <activity
             android:name="com.quizzingbricks.activities.MainScreenActivity"
             android:label="@string/title_activity_main_screen"
-            android:parentActivityName="com.quizzingbricks.activities.LoginActivity" >
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.quizzingbricks.Login" />

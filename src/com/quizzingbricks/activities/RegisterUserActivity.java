@@ -6,6 +6,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -36,6 +37,17 @@ public class RegisterUserActivity extends Activity implements OnTaskCompleteAsyn
         getMenuInflater().inflate(R.menu.login, menu);
         return true;
     }
+	 
+	 @Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	        case android.R.id.home:
+	            finish();
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+        }
+	}
  
 	 @Override
 	public void onBackPressed() {
